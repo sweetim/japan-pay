@@ -3,7 +3,7 @@ import { defineChain } from "viem"
 export const WEB3_AUTH_CLIENT_ID =
   "BNJRSXS1UtdwjQ_Ox5dwgdUQe3G9QbHp2oNfVR_6E8dsZePqGzumiY8R9UKsENq5D_Psuh6Fr0jJdNMQlqxJ_Uk"
 
-export const JOC_CHAIN = defineChain({
+export const jocTestnet = defineChain({
   id: 0x2761,
   name: "Japan Open Chain Testnet",
   nativeCurrency: {

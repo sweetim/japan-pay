@@ -1,4 +1,4 @@
-import { JOC_CHAIN } from "@/chains/joc"
+import { jocTestnet } from "@/chains/joc"
 import { useWalletStore } from "@/store/useWalletStore"
 import { IProvider } from "@web3auth/base"
 import {
@@ -10,6 +10,7 @@ import {
   useEffect,
   useState,
 } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   createWalletClient,
   custom,
@@ -17,6 +18,8 @@ import {
 import { web3Auth } from "../login"
 
 export default function Account() {
+  const navigate = useNavigate()
+
   const [ address, setAddress ] = useState("")
   const [ profileImage, setProfileImage ] = useState("")
 
@@ -28,7 +31,7 @@ export default function Account() {
       if (!provider) return
 
       const walletClient = createWalletClient({
-        chain: JOC_CHAIN,
+        chain: jocTestnet,
         transport: custom<IProvider>(provider),
       })
 
@@ -49,7 +52,7 @@ export default function Account() {
 
   async function logoutClickHandler() {
     await web3Auth.logout()
-    console.log("logout")
+    navigate("/")
   }
 
   return (

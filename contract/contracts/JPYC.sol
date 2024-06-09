@@ -4,10 +4,10 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract JPYs is ERC20 {
+contract JPYC is ERC20 {
     uint8 private _decimals;
 
-    constructor() ERC20("JPY stable", "JPYs") {
+    constructor() ERC20("JPY Coin", "JPYC") {
         _decimals = 18;
     }
 

@@ -11,9 +11,9 @@ import { privateKeyToAccount } from "viem/accounts"
 import hre from "hardhat"
 import { jocTestnet } from "../chains/joc"
 
-const JPYs_CONTRACT_ADDRESS = process.env.JPYs_CONTRACT_ADDRESS || ""
+const MINT_TO_ADDRESS = "0xeC1C571c8B817f9BC91C2cD55F4898f304EbdB5b"
+const JPYC_CONTRACT_ADDRESS = process.env.JPYC_CONTRACT_ADDRESS || ""
 const USDT_CONTRACT_ADDRESS = process.env.USDT_CONTRACT_ADDRESS || ""
-
 const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
 
 const account = privateKeyToAccount(PRIVATE_KEY)
@@ -31,11 +31,11 @@ const publicClient = createPublicClient({
 
 async function main() {
   const { abi: usdtAbi } = hre.artifacts.readArtifactSync("USDT")
-  const { abi: jpysAbi } = hre.artifacts.readArtifactSync("JPYs")
+  const { abi: jpycAbi } = hre.artifacts.readArtifactSync("JPYC")
 
-  const JPYs = getContract({
-    address: JPYs_CONTRACT_ADDRESS,
-    abi: jpysAbi,
+  const JPYC = getContract({
+    address: JPYC_CONTRACT_ADDRESS,
+    abi: jpycAbi,
     client: {
       public: publicClient,
       wallet: walletClient,
@@ -51,20 +51,28 @@ async function main() {
     },
   })
 
-  await USDT.write.mint([
-    account.address,
+  const tx_usdt = await USDT.write.mint([
+    MINT_TO_ADDRESS,
     BigInt(1_000),
   ])
 
-  await JPYs.write.mint([
-    account.address,
+  await publicClient.waitForTransactionReceipt({
+    hash: tx_usdt,
+  })
+
+  const tx_jpys = await JPYC.write.mint([
+    MINT_TO_ADDRESS,
     BigInt(100_000),
   ])
 
+  await publicClient.waitForTransactionReceipt({
+    hash: tx_jpys,
+  })
+
   console.log("Minting completed")
   console.table({
-    JPYs: await JPYs.read.balanceOf([ account.address ]),
-    USDT: await USDT.read.balanceOf([ account.address ]),
+    JPYs: await JPYC.read.balanceOf([ MINT_TO_ADDRESS ]),
+    USDT: await USDT.read.balanceOf([ MINT_TO_ADDRESS ]),
   })
 }
 

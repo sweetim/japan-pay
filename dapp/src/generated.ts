@@ -6,10 +6,10 @@ import {
 } from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// JPYs
+// JPYC
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const jpYsAbi = [
+export const jpycAbi = [
   { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
   {
     type: 'error',
@@ -354,159 +354,159 @@ export const usdtAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__
  */
-export const useReadJpYs = /*#__PURE__*/ createUseReadContract({ abi: jpYsAbi })
+export const useReadJpyc = /*#__PURE__*/ createUseReadContract({ abi: jpycAbi })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"allowance"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"allowance"`
  */
-export const useReadJpYsAllowance = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycAllowance = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'allowance',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"balanceOf"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"balanceOf"`
  */
-export const useReadJpYsBalanceOf = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycBalanceOf = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'balanceOf',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"decimals"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"decimals"`
  */
-export const useReadJpYsDecimals = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycDecimals = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'decimals',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"name"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"name"`
  */
-export const useReadJpYsName = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycName = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'name',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"symbol"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"symbol"`
  */
-export const useReadJpYsSymbol = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycSymbol = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'symbol',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"totalSupply"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"totalSupply"`
  */
-export const useReadJpYsTotalSupply = /*#__PURE__*/ createUseReadContract({
-  abi: jpYsAbi,
+export const useReadJpycTotalSupply = /*#__PURE__*/ createUseReadContract({
+  abi: jpycAbi,
   functionName: 'totalSupply',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpYsAbi}__
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpycAbi}__
  */
-export const useWriteJpYs = /*#__PURE__*/ createUseWriteContract({
-  abi: jpYsAbi,
+export const useWriteJpyc = /*#__PURE__*/ createUseWriteContract({
+  abi: jpycAbi,
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"approve"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"approve"`
  */
-export const useWriteJpYsApprove = /*#__PURE__*/ createUseWriteContract({
-  abi: jpYsAbi,
+export const useWriteJpycApprove = /*#__PURE__*/ createUseWriteContract({
+  abi: jpycAbi,
   functionName: 'approve',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"mint"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"mint"`
  */
-export const useWriteJpYsMint = /*#__PURE__*/ createUseWriteContract({
-  abi: jpYsAbi,
+export const useWriteJpycMint = /*#__PURE__*/ createUseWriteContract({
+  abi: jpycAbi,
   functionName: 'mint',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"transfer"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"transfer"`
  */
-export const useWriteJpYsTransfer = /*#__PURE__*/ createUseWriteContract({
-  abi: jpYsAbi,
+export const useWriteJpycTransfer = /*#__PURE__*/ createUseWriteContract({
+  abi: jpycAbi,
   functionName: 'transfer',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"transferFrom"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"transferFrom"`
  */
-export const useWriteJpYsTransferFrom = /*#__PURE__*/ createUseWriteContract({
-  abi: jpYsAbi,
+export const useWriteJpycTransferFrom = /*#__PURE__*/ createUseWriteContract({
+  abi: jpycAbi,
   functionName: 'transferFrom',
 })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpYsAbi}__
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpycAbi}__
  */
-export const useSimulateJpYs = /*#__PURE__*/ createUseSimulateContract({
-  abi: jpYsAbi,
+export const useSimulateJpyc = /*#__PURE__*/ createUseSimulateContract({
+  abi: jpycAbi,
 })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"approve"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"approve"`
  */
-export const useSimulateJpYsApprove = /*#__PURE__*/ createUseSimulateContract({
-  abi: jpYsAbi,
+export const useSimulateJpycApprove = /*#__PURE__*/ createUseSimulateContract({
+  abi: jpycAbi,
   functionName: 'approve',
 })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"mint"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"mint"`
  */
-export const useSimulateJpYsMint = /*#__PURE__*/ createUseSimulateContract({
-  abi: jpYsAbi,
+export const useSimulateJpycMint = /*#__PURE__*/ createUseSimulateContract({
+  abi: jpycAbi,
   functionName: 'mint',
 })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"transfer"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"transfer"`
  */
-export const useSimulateJpYsTransfer = /*#__PURE__*/ createUseSimulateContract({
-  abi: jpYsAbi,
+export const useSimulateJpycTransfer = /*#__PURE__*/ createUseSimulateContract({
+  abi: jpycAbi,
   functionName: 'transfer',
 })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpYsAbi}__ and `functionName` set to `"transferFrom"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link jpycAbi}__ and `functionName` set to `"transferFrom"`
  */
-export const useSimulateJpYsTransferFrom =
+export const useSimulateJpycTransferFrom =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: jpYsAbi,
+    abi: jpycAbi,
     functionName: 'transferFrom',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpYsAbi}__
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpycAbi}__
  */
-export const useWatchJpYsEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: jpYsAbi,
+export const useWatchJpycEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: jpycAbi,
 })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpYsAbi}__ and `eventName` set to `"Approval"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpycAbi}__ and `eventName` set to `"Approval"`
  */
-export const useWatchJpYsApprovalEvent =
+export const useWatchJpycApprovalEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: jpYsAbi,
+    abi: jpycAbi,
     eventName: 'Approval',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpYsAbi}__ and `eventName` set to `"Transfer"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link jpycAbi}__ and `eventName` set to `"Transfer"`
  */
-export const useWatchJpYsTransferEvent =
+export const useWatchJpycTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: jpYsAbi,
+    abi: jpycAbi,
     eventName: 'Transfer',
   })
 

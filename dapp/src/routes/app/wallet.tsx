@@ -1,40 +1,38 @@
-import { WEB3_AUTH_CLIENT_ID } from "@/chains/joc"
 import { useWalletStore } from "@/store/useWalletStore"
 import {
-  CHAIN_NAMESPACES,
-  WEB3AUTH_NETWORK,
-} from "@web3auth/base"
-import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
-import { Web3Auth } from "@web3auth/modal"
-import { useEffect } from "react"
+  useEffect,
+  useMemo,
+} from "react"
 
-import { JPYs_CONTRACT_ADDRESS } from "@/contract"
-import { useReadJpYsBalanceOf } from "@/generated"
-
-const jocChainConfig = {
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
-  chainId: "0x15885970",
-  rpcTarget: "https://rpc-1.testnet.japanopenchain.org:8545",
-  displayName: "Japan Open Chain Testnet",
-  blockExplorerUrl: "https://explorer.testnet.japanopenchain.org/",
-  ticker: "JOCT",
-  tickerName: "Japan Open Chain Testnet",
-  isTestnet: true,
-}
-
-const privateKeyProvider = new EthereumPrivateKeyProvider({
-  config: { chainConfig: jocChainConfig },
-})
-
-const web3auth = new Web3Auth({
-  clientId: WEB3_AUTH_CLIENT_ID,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-  privateKeyProvider: privateKeyProvider,
-})
+import {
+  JPYC_CONTRACT_ADDRESS,
+  USDT_CONTRACT_ADDRESS,
+} from "@/contract"
+import {
+  useReadJpycBalanceOf,
+  useReadUsdtBalanceOf,
+} from "@/generated"
+import {
+  Avatar,
+  List,
+  Space,
+} from "antd"
 
 export default function Wallet() {
-  const { data: jpysBalance } = useReadJpYsBalanceOf({
-    address: JPYs_CONTRACT_ADDRESS,
+  const walletAddress = "0xeC1C571c8B817f9BC91C2cD55F4898f304EbdB5b"
+
+  const { data: jpysBalance } = useReadJpycBalanceOf({
+    address: JPYC_CONTRACT_ADDRESS,
+    args: [
+      walletAddress,
+    ],
+  })
+
+  const { data: usdtBalance } = useReadUsdtBalanceOf({
+    address: USDT_CONTRACT_ADDRESS,
+    args: [
+      walletAddress,
+    ],
   })
 
   const provider = useWalletStore(state => state.provider)
@@ -49,10 +47,45 @@ export default function Wallet() {
     })()
   }, [])
 
+  const tokensData = useMemo(() => {
+    return [
+      {
+        title: "USDT",
+        amount: usdtBalance,
+        image: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=032",
+      },
+      {
+        title: "JPYC",
+        amount: jpysBalance,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcd1FLPY6Qq-GOSm-8M4bka9NKSY2MHUf_3w&s",
+      },
+    ]
+  }, [ usdtBalance, jpysBalance ])
+
   return (
     <div>
-      <h2>Balance</h2>
-      <p>{jpysBalance}</p>
+      <div className="my-10 bg-white w-full p-5 rounded-3xl">
+        <Space direction="vertical">
+          <h1 className="text-2xl">Account</h1>
+          <p>{walletAddress}</p>
+        </Space>
+      </div>
+      <h1>
+        <strong>Tokens</strong>
+      </h1>
+      <List
+        itemLayout="horizontal"
+        dataSource={tokensData}
+        renderItem={(item) => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar src={item.image} />}
+              title={item.title}
+            />
+            <h2>{item.amount?.toString()}</h2>
+          </List.Item>
+        )}
+      />
     </div>
   )
 }
