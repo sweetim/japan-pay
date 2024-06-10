@@ -1,4 +1,7 @@
-import { Button } from "antd"
+import {
+  Button,
+  Space,
+} from "antd"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -16,6 +19,7 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
     chainConfig: {
       chainNamespace: CHAIN_NAMESPACES.EIP155,
       chainId: "0x15885970",
+      // chainId: "0x2761",
       rpcTarget: "https://rpc-1.testnet.japanopenchain.org:8545",
       displayName: "Japan Open Chain Testnet",
       blockExplorerUrl: "https://explorer.testnet.japanopenchain.org/",
@@ -28,7 +32,7 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
 
 export const web3Auth = new Web3Auth({
   clientId: WEB3_AUTH_CLIENT_ID,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 })
 
@@ -41,24 +45,22 @@ export default function Login() {
     ;(async () => {
       try {
         await web3Auth.initModal()
-        console.log("connected")
-        console.log(web3Auth.provider)
 
         if (web3Auth.provider) {
           console.log("config")
           setWalletProvider(web3Auth.provider)
+
+          navigate("/app")
         }
 
         if (web3Auth.connected) {
           setIsLogin(true)
-          console.log("loginn")
-          navigate("/app")
         }
       } catch (error) {
         console.error(error)
       }
     })()
-  }, [])
+  }, [ web3Auth ])
 
   async function loginClickHandler() {
     const web3AuthProvider = await web3Auth.connect()
@@ -68,20 +70,26 @@ export default function Login() {
     }
   }
 
-  async function logoutClickHandler() {
-    await web3Auth.logout()
-    setWalletProvider(null)
-    setIsLogin(false)
-  }
-
   return (
-    <>
-      <img src="/bg.jpg" alt="bg" />
-      <h1>こんにちは</h1>
-      <h1>Welcome to Japan</h1>
-      <Button size="large" onClick={loginClickHandler}>Login</Button>
-      <Button size="large" onClick={logoutClickHandler}>Logout</Button>
-      <p>your one stop travelling payment app in Japan</p>
-    </>
+    <div>
+      <img className="w-full" src="/bg.jpg" alt="bg" />
+      <Space direction="vertical" size="large" className="p-3 w-full">
+        <Space direction="vertical" size="small">
+          <h1 className="text-3xl">こんにちは</h1>
+          <h1 className="text-2xl text-slate-900">Welcome to Japan</h1>
+          <p>your go to travelling payment app in Japan</p>
+        </Space>
+        <div className="flex justify-center w-full">
+          <Button
+            className="!px-16 !py-6"
+            shape="round"
+            size="large"
+            onClick={loginClickHandler}
+          >
+            LOGIN
+          </Button>
+        </div>
+      </Space>
+    </div>
   )
 }

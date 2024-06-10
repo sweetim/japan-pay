@@ -6,6 +6,7 @@ import {
   Button,
   Space,
 } from "antd"
+import Paragraph from "antd/lib/typography/Paragraph"
 import {
   useEffect,
   useState,
@@ -49,7 +50,7 @@ export default function Account() {
       }
     })()
   })
-
+  console.log(address)
   async function logoutClickHandler() {
     await web3Auth.logout()
     navigate("/")
@@ -59,7 +60,7 @@ export default function Account() {
     <div className="w-full text-center mt-20">
       <Space direction="vertical" size="large" align="center">
         <Avatar size={128} src={profileImage} />
-        <h1 className="font-bold">{address}</h1>
+        <Paragraph copyable className="font-bold">{address}</Paragraph>
         <Button className="!px-10" shape="round" size="large" onClick={logoutClickHandler}>Logout</Button>
       </Space>
     </div>

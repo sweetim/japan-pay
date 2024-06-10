@@ -178,6 +178,80 @@ export const jpycAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// JapanPayShop
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const japanPayShopAbi = [
+  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      { name: 'id', internalType: 'string', type: 'string', indexed: false },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'amountToPay',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'PayEvent',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'MIN_PAY_AMOUNT',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'MIN_TAX_FREE_AMOUNT',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'id', internalType: 'string', type: 'string' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'pay',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'payLogs',
+    outputs: [
+      { name: 'id', internalType: 'string', type: 'string' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amountToPay', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'registerToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // USDT
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -508,6 +582,103 @@ export const useWatchJpycTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
     abi: jpycAbi,
     eventName: 'Transfer',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link japanPayShopAbi}__
+ */
+export const useReadJapanPayShop = /*#__PURE__*/ createUseReadContract({
+  abi: japanPayShopAbi,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"MIN_PAY_AMOUNT"`
+ */
+export const useReadJapanPayShopMinPayAmount =
+  /*#__PURE__*/ createUseReadContract({
+    abi: japanPayShopAbi,
+    functionName: 'MIN_PAY_AMOUNT',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"MIN_TAX_FREE_AMOUNT"`
+ */
+export const useReadJapanPayShopMinTaxFreeAmount =
+  /*#__PURE__*/ createUseReadContract({
+    abi: japanPayShopAbi,
+    functionName: 'MIN_TAX_FREE_AMOUNT',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"payLogs"`
+ */
+export const useReadJapanPayShopPayLogs = /*#__PURE__*/ createUseReadContract({
+  abi: japanPayShopAbi,
+  functionName: 'payLogs',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link japanPayShopAbi}__
+ */
+export const useWriteJapanPayShop = /*#__PURE__*/ createUseWriteContract({
+  abi: japanPayShopAbi,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"pay"`
+ */
+export const useWriteJapanPayShopPay = /*#__PURE__*/ createUseWriteContract({
+  abi: japanPayShopAbi,
+  functionName: 'pay',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"registerToken"`
+ */
+export const useWriteJapanPayShopRegisterToken =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: japanPayShopAbi,
+    functionName: 'registerToken',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link japanPayShopAbi}__
+ */
+export const useSimulateJapanPayShop = /*#__PURE__*/ createUseSimulateContract({
+  abi: japanPayShopAbi,
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"pay"`
+ */
+export const useSimulateJapanPayShopPay =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: japanPayShopAbi,
+    functionName: 'pay',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link japanPayShopAbi}__ and `functionName` set to `"registerToken"`
+ */
+export const useSimulateJapanPayShopRegisterToken =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: japanPayShopAbi,
+    functionName: 'registerToken',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link japanPayShopAbi}__
+ */
+export const useWatchJapanPayShopEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({ abi: japanPayShopAbi })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link japanPayShopAbi}__ and `eventName` set to `"PayEvent"`
+ */
+export const useWatchJapanPayShopPayEventEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: japanPayShopAbi,
+    eventName: 'PayEvent',
   })
 
 /**

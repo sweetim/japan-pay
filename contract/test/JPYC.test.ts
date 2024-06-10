@@ -6,7 +6,7 @@ describe("JPYC", function() {
   // We define a fixture to reuse the same setup in every test.
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
-  async function deployOneYearLockFixture() {
+  async function deployJPYC() {
     const [ owner, user_1 ] = await hre.viem.getWalletClients()
 
     const jpyc = await hre.viem.deployContract(
@@ -26,7 +26,7 @@ describe("JPYC", function() {
 
   describe("Mint", function() {
     it("Should able to mint", async function() {
-      const { jpyc, owner, user_1 } = await loadFixture(deployOneYearLockFixture)
+      const { jpyc, owner, user_1 } = await loadFixture(deployJPYC)
 
       expect(
         await jpyc.read.balanceOf([

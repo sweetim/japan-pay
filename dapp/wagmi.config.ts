@@ -2,6 +2,7 @@ import { defineConfig } from "@wagmi/cli"
 import { react } from "@wagmi/cli/plugins"
 import { Abi } from "viem"
 import { abi as JPYCAbi } from "./abis/JPYC.json"
+import { abi as JapanPayShopAbi } from "./abis/JapanPayShop.json"
 import { abi as USDTAbi } from "./abis/USDT.json"
 
 export default defineConfig({
@@ -14,6 +15,10 @@ export default defineConfig({
     {
       name: "USDT",
       abi: USDTAbi as Abi,
+    },
+    {
+      name: "JapanPayShop",
+      abi: JapanPayShopAbi as Abi,
     },
   ],
   plugins: [

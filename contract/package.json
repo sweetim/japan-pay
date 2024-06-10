@@ -6,19 +6,24 @@
     "test": "hardhat test",
     "compile": "hardhat compile",
     "interact:mint-stable-coin": "hardhat run ./scripts/MintStableCoin.ts",
-    "deploy:stablecoins": "hardhat ignition deploy ./ignition/modules/StableCoins.ts --network joct"
+    "interact:register-pay-shop": "hardhat run ./scripts/RegisterPayShop.ts",
+    "deploy:japan-pay-shop": "hardhat ignition deploy ./ignition/modules/JapanPayShop.ts --network joct",
+    "deploy:stable-coins": "hardhat ignition deploy ./ignition/modules/StableCoins.ts --network joct"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.7",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@types/dotenv": "^8.2.0",
     "dotenv": "^16.4.5",
     "hardhat": "^2.22.5"
   },
   "dependencies": {
+    "@chainlink/contracts": "^1.1.1",
+    "@layerzerolabs/lz-evm-oapp-v2": "^2.3.21",
     "@openzeppelin/contracts": "^5.0.2"
   }
 }

@@ -51,27 +51,27 @@ async function main() {
     },
   })
 
-  const tx_usdt = await USDT.write.mint([
+  // const tx_usdt = await USDT.write.mint([
+  //   MINT_TO_ADDRESS,
+  //   BigInt(1_000),
+  // ])
+
+  // await publicClient.waitForTransactionReceipt({
+  //   hash: tx_usdt,
+  // })
+
+  const tx_jpyc = await JPYC.write.mint([
     MINT_TO_ADDRESS,
-    BigInt(1_000),
+    BigInt(300_000),
   ])
 
   await publicClient.waitForTransactionReceipt({
-    hash: tx_usdt,
-  })
-
-  const tx_jpys = await JPYC.write.mint([
-    MINT_TO_ADDRESS,
-    BigInt(100_000),
-  ])
-
-  await publicClient.waitForTransactionReceipt({
-    hash: tx_jpys,
+    hash: tx_jpyc,
   })
 
   console.log("Minting completed")
   console.table({
-    JPYs: await JPYC.read.balanceOf([ MINT_TO_ADDRESS ]),
+    JPYC: await JPYC.read.balanceOf([ MINT_TO_ADDRESS ]),
     USDT: await USDT.read.balanceOf([ MINT_TO_ADDRESS ]),
   })
 }
