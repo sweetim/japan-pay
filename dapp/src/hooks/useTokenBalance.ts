@@ -16,29 +16,28 @@ import {
   createPublicClient,
   http,
 } from "viem"
+import { useWalletAddress } from "./useWalletAddress"
 
 const USDT_JPYC_CONVERSION = 156.9
-const walletAddress = "0xeC1C571c8B817f9BC91C2cD55F4898f304EbdB5b"
 
 export function useTokenBalance() {
   const [ joctBalance, setJoctBalance ] = useState(0)
+  const [ walletAddress ] = useWalletAddress()
 
   const { data: jpycBalance } = useReadJpycBalanceOf({
     address: JPYC_CONTRACT_ADDRESS,
-    args: [
-      walletAddress,
-    ],
+    args: [ walletAddress ],
   })
 
   const { data: usdtBalance } = useReadUsdtBalanceOf({
     address: USDT_CONTRACT_ADDRESS,
-    args: [
-      walletAddress,
-    ],
+    args: [ walletAddress ],
   })
 
   useEffect(() => {
     ;(async () => {
+      if (!walletAddress) return
+
       const publicClient = createPublicClient({
         chain: jocTestnet,
         transport: http(),
@@ -50,7 +49,7 @@ export function useTokenBalance() {
 
       setJoctBalance(Number(balance))
     })()
-  }, [])
+  }, [ walletAddress ])
 
   const tokensData = useMemo(() => {
     return [
@@ -75,12 +74,13 @@ export function useTokenBalance() {
     ]
   }, [ usdtBalance, jpycBalance, joctBalance ])
 
-  const amountJpy = useMemo(() => {
+  const amountJpy = useMemo<number>(() => {
     return Number(usdtBalance) * USDT_JPYC_CONVERSION + Number(jpycBalance)
   }, [ usdtBalance, jpycBalance ])
 
   return {
     amountJpy,
     tokensData,
+    walletAddress,
   }
 }

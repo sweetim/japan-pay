@@ -1,6 +1,5 @@
-import { jocTestnet } from "@/chains/joc"
-import { useWalletStore } from "@/store/useWalletStore"
-import { IProvider } from "@web3auth/base"
+import { useWalletAddress } from "@/hooks/useWalletAddress"
+import { useWeb3Auth } from "@web3auth/modal-react-hooks"
 import {
   Avatar,
   Button,
@@ -12,47 +11,28 @@ import {
   useState,
 } from "react"
 import { useNavigate } from "react-router-dom"
-import {
-  createWalletClient,
-  custom,
-} from "viem"
-import { web3Auth } from "../login"
 
 export default function Account() {
   const navigate = useNavigate()
 
-  const [ address, setAddress ] = useState("")
   const [ profileImage, setProfileImage ] = useState("")
+  const [ walletAddress ] = useWalletAddress()
 
-  const provider = useWalletStore(state => state.provider)
-
-  useEffect(() => {
-    ;(async () => {
-      console.log(provider)
-      if (!provider) return
-
-      const walletClient = createWalletClient({
-        chain: jocTestnet,
-        transport: custom<IProvider>(provider),
-      })
-
-      const [ address ] = await walletClient.getAddresses()
-      setAddress(address)
-    })()
-  }, [])
+  const {
+    logout,
+    userInfo,
+  } = useWeb3Auth()
 
   useEffect(() => {
     ;(async () => {
-      const user = await web3Auth.getUserInfo()
-
-      if (user.profileImage) {
-        setProfileImage(user.profileImage)
+      if (userInfo && userInfo.profileImage) {
+        setProfileImage(userInfo.profileImage)
       }
     })()
   })
-  console.log(address)
+
   async function logoutClickHandler() {
-    await web3Auth.logout()
+    await logout()
     navigate("/")
   }
 
@@ -60,7 +40,7 @@ export default function Account() {
     <div className="w-full text-center mt-20">
       <Space direction="vertical" size="large" align="center">
         <Avatar size={128} src={profileImage} />
-        <Paragraph copyable className="font-bold">{address}</Paragraph>
+        <Paragraph copyable className="font-bold">{walletAddress}</Paragraph>
         <Button className="!px-10" shape="round" size="large" onClick={logoutClickHandler}>Logout</Button>
       </Space>
     </div>

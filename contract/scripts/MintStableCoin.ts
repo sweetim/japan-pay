@@ -51,18 +51,18 @@ async function main() {
     },
   })
 
-  // const tx_usdt = await USDT.write.mint([
-  //   MINT_TO_ADDRESS,
-  //   BigInt(1_000),
-  // ])
+  const tx_usdt = await USDT.write.mint([
+    MINT_TO_ADDRESS,
+    BigInt(1_000),
+  ])
 
-  // await publicClient.waitForTransactionReceipt({
-  //   hash: tx_usdt,
-  // })
+  await publicClient.waitForTransactionReceipt({
+    hash: tx_usdt,
+  })
 
   const tx_jpyc = await JPYC.write.mint([
     MINT_TO_ADDRESS,
-    BigInt(300_000),
+    BigInt(30_000),
   ])
 
   await publicClient.waitForTransactionReceipt({

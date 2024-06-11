@@ -28,7 +28,7 @@ export default function Wallet() {
                 title={item.title}
                 description={item.description}
               />
-              <h2 className="text-xl font-bold">{item.amount?.toString()}</h2>
+              <h2 className="text-xl font-bold">{item.amount?.toLocaleString()}</h2>
             </List.Item>
           )}
         />

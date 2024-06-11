@@ -18,12 +18,14 @@
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.7",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@types/dotenv": "^8.2.0",
+    "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.5",
     "hardhat": "^2.22.5"
   },
   "dependencies": {
     "@chainlink/contracts": "^1.1.1",
     "@layerzerolabs/lz-evm-oapp-v2": "^2.3.21",
-    "@openzeppelin/contracts": "^5.0.2"
+    "@openzeppelin/contracts": "^5.0.2",
+    "uuid": "^10.0.0"
   }
 }
