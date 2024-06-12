@@ -12,6 +12,7 @@ import {
   Avatar,
   List,
   Space,
+  Tag,
 } from "antd"
 
 type TransactionLog = {
@@ -58,8 +59,8 @@ export default function AppHome() {
   const savingFromTaxBalance = transactionData?.reduce((acc, item) => acc + (item.amount - item.amountToPay), 0) || 0
 
   return (
-    <div className="h-full w-full bg-[#e2d9ca] p-2">
-      <Space direction="vertical" className="w-full" size="middle">
+    <div className="h-full w-full bg-[#e2d9ca] flex flex-col">
+      <Space direction="vertical" className="w-full h-full p-2" size="middle">
         <BalanceCard balance={amountJpy} />
         <BalanceCard
           title="Saving from tax free"
@@ -67,6 +68,8 @@ export default function AppHome() {
         />
         <WalletActionBar />
         <h1 className="text-xl">Transaction</h1>
+      </Space>
+      <div className=" h-full flex flex-col overflow-y-auto px-2">
         <List
           itemLayout="horizontal"
           dataSource={transactionData}
@@ -75,13 +78,20 @@ export default function AppHome() {
               <List.Item.Meta
                 avatar={<Avatar src={item.shopIcon} />}
                 title={item.shopName}
-                description={`${(item.amount - item.amountToPay).toLocaleString()} JPY`}
+                description={
+                  <Space size="small" direction="vertical">
+                    <p color="red">{(new Date(item.timestamp * 1000)).toLocaleString()}</p>
+                    {(item.amount - item.amountToPay) === 0
+                      ? null
+                      : <Tag color="red">{(item.amount - item.amountToPay).toLocaleString()} JPY</Tag>}
+                  </Space>
+                }
               />
               <div className="text-xl font-bold">{item.amountToPay.toLocaleString()}</div>
             </List.Item>
           )}
         />
-      </Space>
+      </div>
     </div>
   )
 }

@@ -34,7 +34,7 @@ export default function AppScan() {
   }
 
   return (
-    <div className="w-full h-full mx-[-8px] stroke-red-300">
+    <div className="w-full h-full">
       <video ref={videoEl} className="h-full object-cover"></video>
     </div>
   )
