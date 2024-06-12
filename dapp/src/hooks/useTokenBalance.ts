@@ -57,7 +57,7 @@ export function useTokenBalance() {
         title: "JOCT",
         amount: (joctBalance / Math.pow(10, 18)).toFixed(3),
         image: "https://www.gu-tech.com/hubfs/logomark.png",
-        description: "1 JPYC",
+        description: "",
       },
       {
         title: "USDT",

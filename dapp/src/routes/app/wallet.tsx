@@ -4,6 +4,7 @@ import {
   Avatar,
   List,
   Space,
+  Tag,
 } from "antd"
 
 export default function Wallet() {
@@ -26,7 +27,7 @@ export default function Wallet() {
               <List.Item.Meta
                 avatar={<Avatar src={item.image} />}
                 title={item.title}
-                description={item.description}
+                description={item.description ? <Tag color="red">{item.description}</Tag> : ""}
               />
               <h2 className="text-xl font-bold">{item.amount?.toLocaleString()}</h2>
             </List.Item>
