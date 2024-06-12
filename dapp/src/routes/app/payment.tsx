@@ -8,6 +8,7 @@ import {
   jpycAbi,
 } from "@/generated"
 import { useShopInfo } from "@/hooks/useShopsInfo"
+import { useTokenBalance } from "@/hooks/useTokenBalance"
 import BalanceCard from "@/modules/BalanceCard"
 import PaymentCard from "@/modules/PaymentCard"
 import { IProvider } from "@web3auth/base"
@@ -33,6 +34,7 @@ export default function AppPayment() {
   const { allShopsObject } = useShopInfo()
   const { provider } = useWeb3Auth()
   const { state } = useLocation()
+  const { amountJpy } = useTokenBalance()
   const { id, amount } = state as QrCodePayload
 
   const shop = allShopsObject[id]
@@ -90,15 +92,14 @@ export default function AppPayment() {
         name={shop.name}
         amount={amount}
         iconUri={shop.iconUri}
-      >
-      </PaymentCard>
+      />
       <div className="px-3">
-        <BalanceCard title="Wallet balance" balance={20000} />
+        <BalanceCard title="Wallet balance" balance={amountJpy} />
       </div>
 
       <div className="mt-20 flex w-full justify-center">
         {isLoading
-          ? <img src="/loading.gif" />
+          ? <img className="w-48 h-48" src="/loading.gif" />
           : (
             <Button
               className="!px-32 !py-8"
