@@ -33,6 +33,7 @@ import {
   WEB3_AUTH_CLIENT_ID,
 } from "./chains/joc"
 import "./index.css"
+import ProtectedRoute from "./modules/common/ProtectedRoute"
 import {
   Account,
   Login,
@@ -55,7 +56,11 @@ const router = createBrowserRouter([
       },
       {
         path: "app",
-        element: <AppRoot />,
+        element: (
+          <ProtectedRoute>
+            <AppRoot />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "",

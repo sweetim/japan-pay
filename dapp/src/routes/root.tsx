@@ -28,7 +28,7 @@ export default function Root() {
     <ConfigProvider
       theme={themeConfig}
     >
-      <div className="h-screen w-screen bg-[#e2d9ca]">
+      <div className="flex h-screen flex-col bg-[#e2d9ca]">
         <Space>
           <Link to="/">
             <img className="w-12 h-12 p-2" src="/logo.png" alt="logo" />

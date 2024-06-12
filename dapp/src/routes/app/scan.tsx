@@ -1,9 +1,9 @@
+import QrScanner from "qr-scanner"
 import {
-  IDetectedBarcode,
-  Scanner,
-} from "@yudiel/react-qr-scanner"
+  useEffect,
+  useRef,
+} from "react"
 import { useNavigate } from "react-router-dom"
-
 export type QrCodePayload = {
   id: string
   amount: number
@@ -11,36 +11,31 @@ export type QrCodePayload = {
 
 export default function AppScan() {
   const navigate = useNavigate()
+  const scanner = useRef<QrScanner>()
+  const videoEl = useRef<HTMLVideoElement>(null)
 
-  async function onScanHandler(result: IDetectedBarcode[]) {
-    if (result.length > 0) {
-      const { rawValue } = result[0]
-      const value: QrCodePayload = JSON.parse(rawValue)
-
-      navigate("/app/payment", { state: value })
+  useEffect(() => {
+    if (videoEl.current) {
+      scanner.current = new QrScanner(videoEl.current, onScanHandler, {})
+      scanner.current.start()
     }
+
+    return () => {
+      if (videoEl.current) {
+        scanner.current?.stop()
+      }
+    }
+  }, [])
+
+  async function onScanHandler(result: QrScanner.ScanResult) {
+    const { data } = result
+    const value: QrCodePayload = JSON.parse(data)
+    navigate("/app/payment", { state: value })
   }
 
   return (
-    <div className="h-full w-screen mx-[-8px]">
-      <Scanner
-        styles={{
-          container: {
-            height: "100%",
-            width: "100%",
-          },
-          video: {
-            height: "100%",
-            width: "100%",
-          },
-        }}
-        constraints={{
-          aspectRatio: {
-            ideal: 0,
-          },
-        }}
-        onScan={onScanHandler}
-      />
+    <div className="w-full h-full mx-[-8px] stroke-red-300">
+      <video ref={videoEl} className="h-full object-cover"></video>
     </div>
   )
 }

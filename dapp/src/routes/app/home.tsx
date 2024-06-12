@@ -51,6 +51,10 @@ export default function AppHome() {
     shopName: allShopsObject[log.id].name,
   }))
 
+  if (transactionData) {
+    transactionData.sort((a, b) => b.timestamp - a.timestamp)
+  }
+
   const savingFromTaxBalance = transactionData?.reduce((acc, item) => acc + (item.amount - item.amountToPay), 0) || 0
 
   return (
