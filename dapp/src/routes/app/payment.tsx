@@ -85,7 +85,7 @@ export default function AppPayment() {
   }
 
   return (
-    <div className="h-full flex flex-col bg-[#e2d9ca]">
+    <div className="h-full flex flex-col">
       <PaymentCard
         name={shop.name}
         amount={amount}

@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom"
 
 export default function AppRoot() {
   return (
-    <Layout className="h-full">
+    <Layout className="h-full bg-[#e2d9ca]">
       <Content>
         <Outlet />
       </Content>

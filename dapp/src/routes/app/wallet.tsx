@@ -10,7 +10,7 @@ export default function Wallet() {
   const { tokensData, amountJpy } = useTokenBalance()
 
   return (
-    <Space direction="vertical" size="large" className="w-full">
+    <Space direction="vertical" size="large" className="w-full p-2">
       <div className="w-full p-2">
         <BalanceCard balance={amountJpy} />
       </div>

@@ -4,6 +4,7 @@ import {
   useRef,
 } from "react"
 import { useNavigate } from "react-router-dom"
+
 export type QrCodePayload = {
   id: string
   amount: number
@@ -16,7 +17,14 @@ export default function AppScan() {
 
   useEffect(() => {
     if (videoEl.current) {
-      scanner.current = new QrScanner(videoEl.current, onScanHandler, {})
+      scanner.current = new QrScanner(
+        videoEl.current,
+        onScanHandler,
+        {
+          highlightCodeOutline: true,
+          highlightScanRegion: true,
+        },
+      )
       scanner.current.start()
     }
 
