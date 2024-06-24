@@ -6,8 +6,19 @@ import { useWalletAddress } from "@/hooks/useWalletAddress"
 import BalanceCard from "@/modules/BalanceCard"
 import TransactionList from "@/modules/TransactionList"
 import WalletActionBar from "@/modules/WalletActionBar"
-import { Space } from "antd"
-import { useEffect } from "react"
+import ItemContainer from "@/modules/common/ItemContainer"
+import { Gift } from "@phosphor-icons/react"
+import {
+  Carousel,
+  ConfigProvider,
+  Modal,
+  Space,
+  theme,
+} from "antd"
+import {
+  useEffect,
+  useState,
+} from "react"
 
 type TransactionLog = {
   id: string
@@ -19,9 +30,10 @@ type TransactionLog = {
 }
 
 export default function AppHome() {
-  const { amountJpy } = useTokenBalance()
+  const { amountJpy, isSuccess } = useTokenBalance()
   const [ walletAddress ] = useWalletAddress()
   const { allShopsObject } = useShopInfo()
+  const [ isAirDropSuccess, setIsAirDropSucess ] = useState(false)
 
   const { data: allPayLogs } = useReadJapanPayShopGetAllPayLogs({
     address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
@@ -48,27 +60,97 @@ export default function AppHome() {
   useEffect(() => {
     ;(async () => {
       if (!walletAddress) return
+      if (!isSuccess) return
       if (amountJpy > 0) return
       console.log("new user sign up bonus")
-      const res = await fetch("https://japan-pay.vercel.app/api/faucet", {
-        method: "POST", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://japan-pay.vercel.app/api/faucet",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            address: walletAddress,
+          }),
         },
-        body: JSON.stringify({
-          address: walletAddress,
-        }),
-      })
+      )
 
       const result = await res.text()
       console.log(result)
+      setIsAirDropSucess(true)
     })()
   }, [ amountJpy, walletAddress ])
 
+  useEffect(() => {
+    if (isAirDropSuccess) {
+      setIsModalOpen(true)
+    }
+  }, [ isAirDropSuccess ])
+
+  const [ isModalOpen, setIsModalOpen ] = useState(false)
+
+  const handleOk = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <div className="h-full w-full bg-[#e2d9ca] flex flex-col">
+      <Modal
+        className="p-5"
+        okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <ConfigProvider
+          theme={{
+            algorithm: theme.darkAlgorithm,
+          }}
+        >
+          <Carousel className="!text-black w-full py-5">
+            <div className="w-full">
+              <Space direction="vertical" className="w-full py-3" align="center">
+                <Gift size={128} color="#f00" weight="fill" />
+                <h2 className="font-bold text-xl">Congratulation!</h2>
+                <p>as a welcome gift for signing up Japan Pay</p>
+                <p>you are rewarded with</p>
+                <div className="py-3">
+                  <h1 className="text-4xl">
+                    {Number(100_000).toLocaleString()} <span className="text-2xl text-slate-600">JPYC</span>
+                  </h1>
+                </div>
+                <p>have a great travel time with us in Japan</p>
+                <p>ありがとうございます</p>
+              </Space>
+            </div>
+            <div className="w-full">
+              <Space direction="vertical" className="w-full py-5" align="center">
+                <img className="w-20 h-20 p-2" src="/logo.png" alt="logo" />
+                <h2 className="font-bold text-xl pb-2">Japan Pay</h2>
+                <Space direction="vertical" className="w-full" size="middle">
+                  <ItemContainer className="bg-[#e0d9cc] w-full">
+                    <p className="p-2">enjoy the best tax free shopping exprience</p>
+                  </ItemContainer>
+                  <ItemContainer className="bg-[#e0d9cc] w-full">
+                    <p className="p-2">enjoy greatest discout with us</p>
+                  </ItemContainer>
+                  <ItemContainer className="bg-[#e0d9cc] w-full">
+                    <p className="p-2">convenient payment scan and pay</p>
+                  </ItemContainer>
+                </Space>
+              </Space>
+            </div>
+          </Carousel>
+        </ConfigProvider>
+      </Modal>
       <Space direction="vertical" className="w-full h-full p-2" size="middle">
-        <BalanceCard balance={amountJpy} />
+        <BalanceCard balance={100_000} />
 
         <BalanceCard
           title="Saving from tax free"

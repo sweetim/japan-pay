@@ -241,24 +241,21 @@ export async function POST(request: Request) {
     },
   })
 
-  const tx_jpyc = await JPYC.write.mint([
-    address,
-    BigInt(100_000),
+  await Promise.all([
+    await publicClient.waitForTransactionReceipt({
+      hash: await JPYC.write.mint([
+        address,
+        BigInt(100_000),
+      ]),
+    }),
+    await publicClient.waitForTransactionReceipt({
+      hash: await walletClient.sendTransaction({
+        account,
+        to: address,
+        value: BigInt(0.1 * Math.pow(10, 18)),
+      }),
+    }),
   ])
-
-  await publicClient.waitForTransactionReceipt({
-    hash: tx_jpyc,
-  })
-
-  const tx_transaction = await walletClient.sendTransaction({
-    account,
-    to: address,
-    value: BigInt(0.1 * Math.pow(10, 18)),
-  })
-
-  await publicClient.waitForTransactionReceipt({
-    hash: tx_transaction,
-  })
 
   return new Response("OK")
 }

@@ -24,12 +24,12 @@ export function useTokenBalance() {
   const [ joctBalance, setJoctBalance ] = useState(0)
   const [ walletAddress ] = useWalletAddress()
 
-  const { data: jpycBalance } = useReadJpycBalanceOf({
+  const { data: jpycBalance, isSuccess: isSuccessJpyc } = useReadJpycBalanceOf({
     address: JPYC_CONTRACT_ADDRESS,
     args: [ walletAddress ],
   })
 
-  const { data: usdtBalance } = useReadUsdtBalanceOf({
+  const { data: usdtBalance, isSuccess: isSuccessUsdt } = useReadUsdtBalanceOf({
     address: USDT_CONTRACT_ADDRESS,
     args: [ walletAddress ],
   })
@@ -78,7 +78,10 @@ export function useTokenBalance() {
     return Number(usdtBalance) * USDT_JPYC_CONVERSION + Number(jpycBalance)
   }, [ usdtBalance, jpycBalance ])
 
+  const isSuccess = isSuccessJpyc && isSuccessUsdt
+
   return {
+    isSuccess,
     amountJpy,
     tokensData,
     walletAddress,
