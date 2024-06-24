@@ -11,7 +11,7 @@ import { privateKeyToAccount } from "viem/accounts"
 import hre from "hardhat"
 import { jocTestnet } from "../chains/joc"
 
-const MINT_TO_ADDRESS = "0xeC1C571c8B817f9BC91C2cD55F4898f304EbdB5b"
+const MINT_TO_ADDRESS = "0x4538Df273c05289DC7491a6cf01acF54F3D1F189"
 const JPYC_CONTRACT_ADDRESS = process.env.JPYC_CONTRACT_ADDRESS || ""
 const USDT_CONTRACT_ADDRESS = process.env.USDT_CONTRACT_ADDRESS || ""
 const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
@@ -62,7 +62,7 @@ async function main() {
 
   const tx_jpyc = await JPYC.write.mint([
     MINT_TO_ADDRESS,
-    BigInt(30_000),
+    BigInt(3_000_000),
   ])
 
   await publicClient.waitForTransactionReceipt({

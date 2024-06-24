@@ -10,24 +10,34 @@ import { useShopInfo } from "@/hooks/useShopsInfo"
 import ShopQRCard from "@/modules/ShopQRCard"
 import ItemContainer from "@/modules/common/ItemContainer"
 import { Space } from "antd"
-import { FC } from "react"
+import {
+  FC,
+  useState,
+} from "react"
 
 const Shop: FC = () => {
   const { allShops } = useShopInfo()
-
-  useWatchJapanPayShopPayEventEvent({
-    address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
-    onLogs(logs) {
-      console.log(logs)
-      refetch()
-    },
-  })
+  const [ logs, setLogs ] = useState<any[]>([])
 
   const { data: balance_jpyc, refetch } = useReadJpycBalanceOf({
     address: JPYC_CONTRACT_ADDRESS,
     args: [
       JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
     ],
+  })
+
+  useWatchJapanPayShopPayEventEvent({
+    poll: true,
+    pollingInterval: 1_000,
+    address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
+    onLogs(logs) {
+      const logArgs = logs.map(item => item.args)
+      console.log(logArgs)
+      setLogs((prev) => {
+        return [ ...logArgs, ...prev ]
+      })
+      refetch()
+    },
   })
 
   return (
@@ -47,6 +57,9 @@ const Shop: FC = () => {
       <div className="flex flex-row flex-wrap py-2">
         {allShops?.map(shop => <ShopQRCard key={shop.id} {...shop} />)}
       </div>
+      <ul>
+        {logs.map(item => <li>{JSON.stringify(item)}</li>)}
+      </ul>
     </div>
   )
 }

@@ -55,7 +55,7 @@ const WalletActionBar: FC = () => {
           <div className="min-w-48 max-w-48">
             <Paragraph ellipsis copyable className="font-bold">{walletAddress}</Paragraph>
           </div>
-          <p className="text-lg text-slate-400">scan this QR code to deposit JPYC</p>
+          <p className="text-base text-slate-400">scan this QR code to deposit ERC20 token</p>
         </Space>
       </Modal>
       <Link to="scan">

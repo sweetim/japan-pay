@@ -1,8 +1,5 @@
 import { JAPAN_PAY_SHOP_CONTRACT_ADDRESS } from "@/contract"
-import {
-  useReadJapanPayShopGetAllPayLogs,
-  useWatchJapanPayShopPayEventEvent,
-} from "@/generated"
+import { useReadJapanPayShopGetAllPayLogs } from "@/generated"
 import { useShopInfo } from "@/hooks/useShopsInfo"
 import { useTokenBalance } from "@/hooks/useTokenBalance"
 import { useWalletAddress } from "@/hooks/useWalletAddress"
@@ -24,13 +21,6 @@ export default function AppHome() {
   const { amountJpy } = useTokenBalance()
   const [ walletAddress ] = useWalletAddress()
   const { allShopsObject } = useShopInfo()
-
-  useWatchJapanPayShopPayEventEvent({
-    address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
-    onLogs: (logs) => {
-      console.log("ev", logs)
-    },
-  })
 
   const { data: allPayLogs } = useReadJapanPayShopGetAllPayLogs({
     address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
@@ -58,6 +48,7 @@ export default function AppHome() {
     <div className="h-full w-full bg-[#e2d9ca] flex flex-col">
       <Space direction="vertical" className="w-full h-full p-2" size="middle">
         <BalanceCard balance={amountJpy} />
+
         <BalanceCard
           title="Saving from tax free"
           balance={savingFromTaxBalance}
