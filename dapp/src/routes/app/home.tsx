@@ -7,6 +7,7 @@ import BalanceCard from "@/modules/BalanceCard"
 import TransactionList from "@/modules/TransactionList"
 import WalletActionBar from "@/modules/WalletActionBar"
 import { Space } from "antd"
+import { useEffect } from "react"
 
 type TransactionLog = {
   id: string
@@ -43,6 +44,26 @@ export default function AppHome() {
   }
 
   const savingFromTaxBalance = transactionData?.reduce((acc, item) => acc + (item.amount - item.amountToPay), 0) || 0
+
+  useEffect(() => {
+    ;(async () => {
+      if (!walletAddress) return
+      if (amountJpy > 0) return
+      console.log("new user sign up bonus")
+      const res = await fetch("https://japan-pay.vercel.app/api/faucet", {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          address: walletAddress,
+        }),
+      })
+
+      const result = await res.text()
+      console.log(result)
+    })()
+  }, [ amountJpy, walletAddress ])
 
   return (
     <div className="h-full w-full bg-[#e2d9ca] flex flex-col">
