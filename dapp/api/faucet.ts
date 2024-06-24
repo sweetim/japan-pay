@@ -209,6 +209,8 @@ type FaucetPayload = {
   address: `0x${string}`
 }
 
+export const maxDuration = 60
+
 export function GET(request: VercelRequest) {
   return new Response(`Hello ${Date.now()}`)
 }
