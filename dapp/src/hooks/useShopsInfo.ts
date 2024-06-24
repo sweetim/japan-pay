@@ -7,8 +7,6 @@ export function useShopInfo() {
     address: JAPAN_PAY_SHOP_CONTRACT_ADDRESS,
   })
 
-  console.log(allShops)
-
   const allShopsObject = useMemo(() => {
     if (!allShops) return {}
 

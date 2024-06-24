@@ -12,12 +12,14 @@ export type QrCodePayload = {
 
 export default function AppScan() {
   const navigate = useNavigate()
-  const scanner = useRef<QrScanner>()
+  const qrScanner = useRef<QrScanner | null>()
   const videoEl = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    if (videoEl.current) {
-      scanner.current = new QrScanner(
+    ;(async () => {
+      if (!videoEl.current) return
+
+      qrScanner.current = new QrScanner(
         videoEl.current,
         onScanHandler,
         {
@@ -25,18 +27,22 @@ export default function AppScan() {
           highlightScanRegion: true,
         },
       )
-      scanner.current.start()
-    }
+
+      qrScanner.current.start()
+    })()
 
     return () => {
-      if (videoEl.current) {
-        scanner.current?.stop()
-      }
+      if (!qrScanner.current) return
+
+      qrScanner.current.pause()
+      qrScanner.current.stop()
+      qrScanner.current.destroy()
     }
   }, [])
 
   async function onScanHandler(result: QrScanner.ScanResult) {
     const { data } = result
+    console.log(data)
     const value: QrCodePayload = JSON.parse(data)
     navigate("/app/payment", { state: value })
   }

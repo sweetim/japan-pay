@@ -7,13 +7,9 @@ import { useShopInfo } from "@/hooks/useShopsInfo"
 import { useTokenBalance } from "@/hooks/useTokenBalance"
 import { useWalletAddress } from "@/hooks/useWalletAddress"
 import BalanceCard from "@/modules/BalanceCard"
+import TransactionList from "@/modules/TransactionList"
 import WalletActionBar from "@/modules/WalletActionBar"
-import {
-  Avatar,
-  List,
-  Space,
-  Tag,
-} from "antd"
+import { Space } from "antd"
 
 type TransactionLog = {
   id: string
@@ -69,29 +65,7 @@ export default function AppHome() {
         <WalletActionBar />
         <h1 className="text-xl">Transaction</h1>
       </Space>
-      <div className=" h-full flex flex-col overflow-y-auto px-2">
-        <List
-          itemLayout="horizontal"
-          dataSource={transactionData}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={item.shopIcon} />}
-                title={item.shopName}
-                description={
-                  <Space size="small" direction="vertical">
-                    <p color="red">{(new Date(item.timestamp * 1000)).toLocaleString()}</p>
-                    {(item.amount - item.amountToPay) === 0
-                      ? null
-                      : <Tag color="red">{(item.amount - item.amountToPay).toLocaleString()} JPY</Tag>}
-                  </Space>
-                }
-              />
-              <div className="text-xl font-bold">{item.amountToPay.toLocaleString()}</div>
-            </List.Item>
-          )}
-        />
-      </div>
+      <TransactionList />
     </div>
   )
 }

@@ -1,33 +1,31 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom"
-
 import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query"
-import {
-  Web3AuthContextConfig,
-  Web3AuthInnerContext,
-  Web3AuthProvider,
-} from "@web3auth/modal-react-hooks"
-import {
-  createConfig,
-  http,
-  WagmiProvider,
-} from "wagmi"
-
 import {
   CHAIN_NAMESPACES,
   WEB3AUTH_NETWORK,
 } from "@web3auth/base"
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
 import { Web3AuthOptions } from "@web3auth/modal"
+import {
+  Web3AuthContextConfig,
+  Web3AuthInnerContext,
+  Web3AuthProvider,
+} from "@web3auth/modal-react-hooks"
 import { WalletServicesPlugin } from "@web3auth/wallet-services-plugin"
 import { WalletServicesProvider } from "@web3auth/wallet-services-plugin-react-hooks"
+import React from "react"
+import ReactDOM from "react-dom/client"
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom"
+import {
+  createConfig,
+  http,
+  WagmiProvider,
+} from "wagmi"
 import {
   jocTestnet,
   WEB3_AUTH_CLIENT_ID,
@@ -40,10 +38,12 @@ import {
   Root,
   Wallet,
 } from "./routes"
+import History from "./routes/app/history"
 import AppHome from "./routes/app/home"
 import AppPayment from "./routes/app/payment"
 import AppRoot from "./routes/app/root"
 import AppScan from "./routes/app/scan"
+import Shop from "./routes/shop"
 
 const router = createBrowserRouter([
   {
@@ -53,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Login />,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
       },
       {
         path: "app",
@@ -65,6 +69,10 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <AppHome />,
+          },
+          {
+            path: "history",
+            element: <History />,
           },
           {
             path: "scan",
@@ -116,11 +124,18 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
 export const web3AuthOptions: Web3AuthOptions = {
   clientId: WEB3_AUTH_CLIENT_ID,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-  privateKeyProvider: privateKeyProvider,
+  privateKeyProvider,
 }
+
 const walletServicesPlugin = new WalletServicesPlugin({
   wsEmbedOpts: {},
-  walletInitOptions: { whiteLabel: { showWidgetButton: true } },
+  walletInitOptions: {
+    whiteLabel: {
+      logoDark: "",
+      logoLight: "",
+      showWidgetButton: true,
+    },
+  },
 })
 
 const web3AuthContextConfig: Web3AuthContextConfig = {
