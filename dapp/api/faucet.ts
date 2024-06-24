@@ -7,7 +7,7 @@ import {
   http,
 } from "viem"
 import { privateKeyToAccount } from "viem/accounts"
-import { jpycAbi } from "../src/generated"
+import { jpycAbi } from "./generated"
 
 const jocTestnet = defineChain({
   id: 0x2761,
@@ -79,6 +79,16 @@ export async function POST(request: Request) {
 
   await publicClient.waitForTransactionReceipt({
     hash: tx_jpyc,
+  })
+
+  const tx_transaction = await walletClient.sendTransaction({
+    account,
+    to: address,
+    value: BigInt(0.1 * Math.pow(10, 18)),
+  })
+
+  await publicClient.waitForTransactionReceipt({
+    hash: tx_transaction,
   })
 
   return new Response("OK")
