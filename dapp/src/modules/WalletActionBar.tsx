@@ -22,18 +22,18 @@ import { Link } from "react-router-dom"
 const WalletActionBar: FC = () => {
   const [ walletAddress ] = useWalletAddress()
 
-  const [ isModalOpen, setIsModalOpen ] = useState(false)
+  const [ isDepositModalOpen, setIsDepositModalOpen ] = useState(false)
 
   const handleOk = () => {
-    setIsModalOpen(false)
+    setIsDepositModalOpen(false)
   }
 
   const handleCancel = () => {
-    setIsModalOpen(false)
+    setIsDepositModalOpen(false)
   }
 
   async function depositClickHandler() {
-    setIsModalOpen(true)
+    setIsDepositModalOpen(true)
   }
 
   return (
@@ -42,7 +42,7 @@ const WalletActionBar: FC = () => {
         className="p-5"
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
-        open={isModalOpen}
+        open={isDepositModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -68,10 +68,12 @@ const WalletActionBar: FC = () => {
         <ArrowDownOutlined style={{ fontSize: "28px", color: "#eb473d" }} />
         <p>Deposit</p>
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <ArrowUpOutlined style={{ fontSize: "28px", color: "#eb473d" }} />
-        <p>Send</p>
-      </div>
+      <Link to="wallet" state={{ send: true }}>
+        <div className="flex flex-col justify-center items-center">
+          <ArrowUpOutlined style={{ fontSize: "28px", color: "#eb473d" }} />
+          <p>Send</p>
+        </div>
+      </Link>
       <div className="flex flex-col justify-center items-center">
         <BarcodeOutlined style={{ fontSize: "28px", color: "#eb473d" }} />
         <p>Code</p>

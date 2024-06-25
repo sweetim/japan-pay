@@ -2,6 +2,7 @@ import {
   FC,
   ReactElement,
 } from "react"
+import { twMerge } from "tailwind-merge"
 
 type ItemContainerProps = {
   className?: string
@@ -10,7 +11,7 @@ type ItemContainerProps = {
 
 const ItemContainer: FC<ItemContainerProps> = ({ className, children }) => {
   return (
-    <div className={`p-2 bg-white rounded-xl ${className}`}>
+    <div className={twMerge("p-2 bg-white rounded-xl", className)}>
       {children}
     </div>
   )

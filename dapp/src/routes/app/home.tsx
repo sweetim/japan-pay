@@ -6,15 +6,8 @@ import { useWalletAddress } from "@/hooks/useWalletAddress"
 import BalanceCard from "@/modules/BalanceCard"
 import TransactionList from "@/modules/TransactionList"
 import WalletActionBar from "@/modules/WalletActionBar"
-import ItemContainer from "@/modules/common/ItemContainer"
-import { Gift } from "@phosphor-icons/react"
-import {
-  Carousel,
-  ConfigProvider,
-  Modal,
-  Space,
-  theme,
-} from "antd"
+import SignUpBonusModal from "@/modules/modal/SignUpBonusModal"
+import { Space } from "antd"
 import {
   useEffect,
   useState,
@@ -62,6 +55,7 @@ export default function AppHome() {
       if (!walletAddress) return
       if (!isSuccess) return
       if (amountJpy > 0) return
+
       console.log("new user sign up bonus")
       const res = await fetch(
         "https://japan-pay.vercel.app/api/faucet",
@@ -82,76 +76,11 @@ export default function AppHome() {
     })()
   }, [ amountJpy, walletAddress ])
 
-  useEffect(() => {
-    if (isAirDropSuccess) {
-      setIsModalOpen(true)
-    }
-  }, [ isAirDropSuccess ])
-
-  const [ isModalOpen, setIsModalOpen ] = useState(false)
-
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
-
   return (
     <div className="h-full w-full bg-[#e2d9ca] flex flex-col">
-      <Modal
-        className="p-5"
-        okButtonProps={{ hidden: true }}
-        cancelButtonProps={{ hidden: true }}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <ConfigProvider
-          theme={{
-            algorithm: theme.darkAlgorithm,
-          }}
-        >
-          <Carousel className="!text-black w-full py-5">
-            <div className="w-full">
-              <Space direction="vertical" className="w-full py-3" align="center">
-                <Gift size={128} color="#f00" weight="fill" />
-                <h2 className="font-bold text-xl">Congratulation!</h2>
-                <p>as a welcome gift for signing up Japan Pay</p>
-                <p>you are rewarded with</p>
-                <div className="py-3">
-                  <h1 className="text-4xl">
-                    {Number(100_000).toLocaleString()} <span className="text-2xl text-slate-600">JPYC</span>
-                  </h1>
-                </div>
-                <p>have a great travel time with us in Japan</p>
-                <p>ありがとうございます</p>
-              </Space>
-            </div>
-            <div className="w-full">
-              <Space direction="vertical" className="w-full py-5" align="center">
-                <img className="w-20 h-20 p-2" src="/logo.png" alt="logo" />
-                <h2 className="font-bold text-xl pb-2">Japan Pay</h2>
-                <Space direction="vertical" className="w-full" size="middle">
-                  <ItemContainer className="bg-[#e0d9cc] w-full">
-                    <p className="p-2">enjoy the best tax free shopping exprience</p>
-                  </ItemContainer>
-                  <ItemContainer className="bg-[#e0d9cc] w-full">
-                    <p className="p-2">enjoy greatest discout with us</p>
-                  </ItemContainer>
-                  <ItemContainer className="bg-[#e0d9cc] w-full">
-                    <p className="p-2">convenient payment scan and pay</p>
-                  </ItemContainer>
-                </Space>
-              </Space>
-            </div>
-          </Carousel>
-        </ConfigProvider>
-      </Modal>
+      <SignUpBonusModal open={isAirDropSuccess} />
       <Space direction="vertical" className="w-full h-full p-2" size="middle">
         <BalanceCard balance={amountJpy} />
-
         <BalanceCard
           title="Saving from tax free"
           balance={savingFromTaxBalance}
