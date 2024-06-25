@@ -150,7 +150,7 @@ export default function AppHome() {
         </ConfigProvider>
       </Modal>
       <Space direction="vertical" className="w-full h-full p-2" size="middle">
-        <BalanceCard balance={100_000} />
+        <BalanceCard balance={amountJpy} />
 
         <BalanceCard
           title="Saving from tax free"
