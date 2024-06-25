@@ -56,6 +56,7 @@ export default function AppHome() {
       if (!isSuccess) return
       if (amountJpy > 0) return
 
+      setIsAirDropSucess(true)
       console.log("new user sign up bonus")
       const res = await fetch(
         "https://japan-pay.vercel.app/api/faucet",
@@ -72,7 +73,6 @@ export default function AppHome() {
 
       const result = await res.text()
       console.log(result)
-      setIsAirDropSucess(true)
     })()
   }, [ amountJpy, walletAddress ])
 
